@@ -1,0 +1,4 @@
+/* Ensure the multi-select dropdown remains intact */
+.p-multiselect-item span {
+    white-space: break-spaces;
+}

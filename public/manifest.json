@@ -1,0 +1,27 @@
+{
+  "theme_color": "#6366f1",
+  "background_color": "#6366f1",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "icon512_maskable.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "icon512_rounded.png",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait",
+  "display": "standalone",
+  "dir": "auto",
+  "lang": "es",
+  "name": "ProfeAlex.com",
+  "short_name": "Profe Alex",
+  "start_url": "https://profealex.com",
+  "scope": "https://profealex.com",
+  "description": "Herramientas educativas"
+}
