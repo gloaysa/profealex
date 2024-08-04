@@ -15,8 +15,8 @@ export const FormEvaluacion = () => {
   return (
     <FormSection title="evaluacion">
       <MarkDownEditor
-        label="Evaluación de los alumnos"
-        placeholder="Evalución de los alumnos"
+        label="Instrumentos de evaluación"
+        placeholder="Instrumentos de evaluación"
         value={evaluacion.alumnos.text}
         onChange={(value) => handleBasicInfoChange("alumnos", value)}
       />
@@ -27,8 +27,8 @@ export const FormEvaluacion = () => {
         onChange={(value) => handleBasicInfoChange("autoevaluacion", value)}
       />
       <MarkDownEditor
-        label="Propuestas de mejora"
-        placeholder="Propuestas de mejora"
+        label="Detección de posibles problemas y necesidades"
+        placeholder="Detección de posibles problemas y necesidades"
         value={evaluacion.propuestasMejora.text}
         onChange={(value) => handleBasicInfoChange("propuestasMejora", value)}
       />

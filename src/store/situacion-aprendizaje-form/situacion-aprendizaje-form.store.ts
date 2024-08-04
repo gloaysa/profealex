@@ -79,6 +79,7 @@ const defaultState = {
   atencionInclusiva: {
     principiosDUA: [],
     pautasDUA: [],
+    adaptaciones: { text: "" },
   },
   evaluacion: {
     alumnos: { text: "" },

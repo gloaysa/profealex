@@ -150,7 +150,7 @@ export const FormCreatePdf = () => {
     <div>
       <article
         ref={componentRef}
-        className="flex flex-column gap-4 p-6 bg-white text-sm my-0 mx-auto"
+        className="flex flex-column gap-2 md:gap-4 p-2 md:p-6 bg-white text-sm my-0 mx-auto"
         style={{
           width: !isMobileDevice ? "595pt" : "100%", // Set maxWidth to A4 width
           pageBreakInside: "avoid",
@@ -242,7 +242,7 @@ export const FormCreatePdf = () => {
           />
         </PDFSection>
 
-        <PDFSection title="Metodología">
+        <PDFSection title="Metodología y recursos didácticos">
           <PDFHtmlField
             title="Agrupamiento"
             content={metodologia.agrupamiento.html}
@@ -269,16 +269,23 @@ export const FormCreatePdf = () => {
             items={atencionInclusiva.principiosDUA}
           />
           <PDFHtmlList title="Pautas DUA" items={atencionInclusiva.pautasDUA} />
+          <PDFHtmlField
+            title="Adaptaciones"
+            content={atencionInclusiva.adaptaciones.html}
+          />
         </PDFSection>
 
         <PDFSection title="Evaluación">
-          <PDFHtmlField title="Alumnos" content={evaluacion.alumnos.html} />
+          <PDFHtmlField
+            title="Instrumentos de evaluación"
+            content={evaluacion.alumnos.html}
+          />
           <PDFHtmlField
             title="Autoevaluación"
             content={evaluacion.autoevaluacion.html}
           />
           <PDFHtmlField
-            title="Propuestas de mejora"
+            title="Detección de posibles problemas y necesidades"
             content={evaluacion.propuestasMejora.html}
           />
         </PDFSection>

@@ -57,6 +57,7 @@ export interface FormAtencionInclusiva {
     pautas: { code: string; label: string }[];
   }[];
   pautasDUA: { code: string; label: string }[];
+  adaptaciones: Content;
 }
 
 export interface FormEvaluacion {

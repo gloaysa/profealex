@@ -25,7 +25,7 @@ export const SituacionAprendizaje = () => {
 
   if (!selectedSubject) {
     return (
-      <div className="h-full p-4">
+      <div className="h-full fadeinleft animation-duration-500">
         <h1 className="bg-primary border-round p-2 text-center">
           Situación de aprendizaje
         </h1>
@@ -46,7 +46,7 @@ export const SituacionAprendizaje = () => {
   }
 
   return (
-    <div className="flex flex-column gap-4 p-4">
+    <div className="flex flex-column p-2 gap-2 md:gap-4 md:p-4 fadeindown animation-duration-500">
       <div className="flex justify-content-between align-items-center">
         <h1>Situación de Aprendizaje</h1>
       </div>
@@ -63,6 +63,7 @@ export const SituacionAprendizaje = () => {
         </div>
         <FormPdfDialog />
       </div>
+
       <FormBasicInfo />
       <FormAspectosCurriculares />
       <FormActividades />

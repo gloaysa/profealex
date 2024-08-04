@@ -1,6 +1,8 @@
 import { SubjectSelector } from "@components/SubjectSelector/SubjectSelector.component.tsx";
 import { SituacionAprendizaje } from "@pages/SituacionAprendizaje/SituacionAprendizaje.page.tsx";
 import { Image } from "primereact/image";
+import { ErrorBoundary } from "@components/ErrorBoundary.tsx";
+import { SituacionAprendizajeErrorBoundaryFallback } from "@pages/SituacionAprendizaje/s-a.error-boundary-fallback.tsx";
 
 function App() {
   return (
@@ -9,16 +11,27 @@ function App() {
       style={{ maxWidth: "2100px", minHeight: "100vh" }}
     >
       <div className="w-full h-full">
-        <div className="flex gap-2 align-items-center border-round surface-border border-1">
-          <Image width="100px" src="/icon512_rounded.png" />
+        <header className="flex gap-2 align-items-center border-round surface-border border-1">
+          <Image
+            className="bounce-in"
+            width="100px"
+            src="/icon512_rounded.png"
+          />
           <div className="flex flex-column gap-2 justify-content-center">
             <span className="text-3xl text-center text-primary">ProfeAlex</span>
             <small>Herramientas educativas</small>
           </div>
-        </div>
-        <SubjectSelector />
+        </header>
 
-        <SituacionAprendizaje />
+        <div className="flex flex-column gap-2 px-2 py-4 md:p-4">
+          <SubjectSelector />
+
+          <ErrorBoundary
+            fallback={<SituacionAprendizajeErrorBoundaryFallback />}
+          >
+            <SituacionAprendizaje />
+          </ErrorBoundary>
+        </div>
       </div>
 
       <footer className="flex flex-column md:flex-row bg-primary align-items-center md:justify-content-between p-4 mt-auto">

@@ -22,13 +22,24 @@ export interface CurriculumStore {
   subjects: ISubject[];
   selectedSubject: ISubject | undefined;
   setSelectedSubject: (subject: ISubject | undefined) => void;
+  clear: () => void;
 }
+
+const initialState = {
+  selectedCA: undefined,
+  selectedStage: undefined,
+  courses: [],
+  selectedCourse: undefined,
+  allMaterias: [],
+  subjects: [],
+  selectedSubject: undefined,
+};
 
 export const useCurriculumStore = create<CurriculumStore>()(
   devtools(
     persist(
       (set, get) => ({
-        selectedCA: undefined,
+        ...initialState,
         getCA: async (caCode: string) => {
           const selectedCA = COMUNIDADES_AUTONOMAS.find(
             (caItem) => caItem.code === caCode,
@@ -39,7 +50,6 @@ export const useCurriculumStore = create<CurriculumStore>()(
           const materias = await getMaterias(caCode);
           set({ allMaterias: materias });
         },
-        selectedStage: undefined,
         setSelectedStage: (stage) => {
           set({ selectedStage: stage });
           set({ courses: [] });
@@ -51,9 +61,6 @@ export const useCurriculumStore = create<CurriculumStore>()(
             .flatMap((mat) => mat.courses);
           set({ courses });
         },
-        allMaterias: [],
-        courses: [],
-        selectedCourse: undefined,
         setSelectedCourse: (course) => {
           set({ selectedCourse: course });
           set({ subjects: [] });
@@ -63,10 +70,11 @@ export const useCurriculumStore = create<CurriculumStore>()(
           const subjects = course.subjects;
           set({ subjects });
         },
-        subjects: [],
-        selectedSubject: undefined,
         setSelectedSubject: async (subject) => {
           set({ selectedSubject: subject });
+        },
+        clear: () => {
+          set({ ...initialState });
         },
       }),
       {

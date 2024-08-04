@@ -3,6 +3,7 @@ import { useSituacionAprendizajeFormStore } from "@/store/situacion-aprendizaje-
 import { InputMultiSelect } from "@components/InputMultiSelect/InputMultiSelect.component.tsx";
 import { useQuery } from "@tanstack/react-query";
 import { getPautasDUA } from "@/store/curriculum/curriculum.api.ts";
+import { MarkDownEditor } from "@components/MarkDownEditor/MarkDownEditor.mol.tsx";
 
 export const FormAtencionInclusiva = () => {
   const { atencionInclusiva, setAtencionInclusiva } =
@@ -48,6 +49,13 @@ export const FormAtencionInclusiva = () => {
           </span>
         )}
         display="chip"
+      />
+
+      <MarkDownEditor
+        label="Adaptaciones"
+        placeholder="Adaptaciones"
+        value={atencionInclusiva.adaptaciones.text}
+        onChange={(value) => handleBasicInfoChange("adaptaciones", value)}
       />
     </FormSection>
   );

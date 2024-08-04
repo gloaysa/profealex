@@ -13,7 +13,7 @@ export const FormMetodologia = () => {
   };
 
   return (
-    <FormSection title="metodologia">
+    <FormSection title="Metodología y recursos didácticos">
       <MarkDownEditor
         label="Agrupamiento"
         placeholder="Agrupamiento"
