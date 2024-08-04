@@ -71,13 +71,13 @@ export const SubjectSelector = () => {
         />
         <div className="flex gap-2 pl-2 align-items-center text-xs">
           {breadCrumb.map((item) => (
-            <>
+            <span key={item.id}>
               {item.icon ? (
                 <i className={`${item.icon} text-xs`}></i>
               ) : (
                 item.label
               )}
-            </>
+            </span>
           ))}
         </div>
       </div>

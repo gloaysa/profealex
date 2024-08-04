@@ -113,7 +113,7 @@ export const getSituacionesAprendizaje = async (
 export const getCompetenciasEspecificas = async (
   ca: string,
   subject: ISubject,
-): Promise<string[]> => {
+): Promise<{ code: number; label: string }[]> => {
   try {
     const response = await fetch(
       `${baseUrl}/${ca}/${subject.stage}/${subject.code}/competencias-especificas.json`,
