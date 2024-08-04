@@ -29,7 +29,6 @@ export const FormTransversalidad = () => {
         loading={ods.isLoading}
         value={transversalidad.ods}
         onChange={(e) => handleBasicInfoChange("ods", e.value)}
-        filter
         optionLabel="code"
         itemTemplate={(cc) => cc.label}
         display="chip"

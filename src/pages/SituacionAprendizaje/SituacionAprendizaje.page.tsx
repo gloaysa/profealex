@@ -50,9 +50,10 @@ export const SituacionAprendizaje = () => {
       <div className="flex justify-content-between align-items-center">
         <h1>Situación de Aprendizaje</h1>
       </div>
-      <div className="flex w-full justify-content-between">
+      <div className="flex flex-column md:flex-row w-full justify-content-between gap-4">
         <div>
           <ConfirmButton
+            className="w-full"
             severity="warning"
             accept={() => clear()}
             label="Borrar datos"

@@ -1,7 +1,7 @@
 import { useSituacionAprendizajeFormStore } from "@/store/situacion-aprendizaje-form/situacion-aprendizaje-form.store.ts";
 import html2pdf from "html2pdf.js";
 import { Button } from "primereact/button";
-import { ReactNode, useRef } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { SafeHtml } from "@components/SafeHtml/SafeHtml.mol.tsx";
 import { useCurriculumStore } from "@/store/curriculum/curriculum.store.ts";
 
@@ -119,6 +119,16 @@ export const FormCreatePdf = () => {
   const { selectedCourse, selectedSubject } = useCurriculumStore();
 
   const componentRef = useRef<HTMLDivElement | null>(null);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+  const isMobile = () => {
+    const userAgent = navigator.userAgent || navigator.vendor;
+    return /android|iPhone|iPad|iPod/i.test(userAgent);
+  };
+
+  useEffect(() => {
+    setIsMobileDevice(isMobile());
+  }, []);
 
   const handleDownloadPdf = () => {
     const input = componentRef.current;
@@ -142,7 +152,7 @@ export const FormCreatePdf = () => {
         ref={componentRef}
         className="flex flex-column gap-4 p-6 bg-white text-sm my-0 mx-auto"
         style={{
-          width: "595pt", // Set maxWidth to A4 width
+          width: !isMobileDevice ? "595pt" : "100%", // Set maxWidth to A4 width
           pageBreakInside: "avoid",
           breakInside: "avoid",
         }}
@@ -314,7 +324,11 @@ export const FormCreatePdf = () => {
           ))}
         </PDFSection>
       </article>
-      <Button onClick={handleDownloadPdf}>Descargar como PDF</Button>
+      <Button
+        label={`Descargar como PDF ${isMobileDevice ? "(no disponible en móvil)" : ""}`}
+        disabled={isMobileDevice}
+        onClick={handleDownloadPdf}
+      />
     </div>
   );
 };

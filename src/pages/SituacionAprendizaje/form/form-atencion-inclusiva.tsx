@@ -28,7 +28,6 @@ export const FormAtencionInclusiva = () => {
         loading={dua.isLoading}
         value={atencionInclusiva.principiosDUA}
         onChange={(e) => handleBasicInfoChange("principiosDUA", e.value)}
-        filter
         optionLabel="code"
         itemTemplate={(cc) => cc.label}
         display="chip"
@@ -42,7 +41,6 @@ export const FormAtencionInclusiva = () => {
         value={atencionInclusiva.pautasDUA}
         onChange={(e) => handleBasicInfoChange("pautasDUA", e.value)}
         disabled={!atencionInclusiva.principiosDUA.length}
-        filter
         optionLabel="code"
         itemTemplate={(cc) => (
           <span>

@@ -68,7 +68,6 @@ export const FormAspectosCurriculares = () => {
         loading={objectivosGenerales.isLoading}
         value={aspectosCurriculares.objetivosGenerales}
         onChange={(e) => handleBasicInfoChange("objetivosGenerales", e.value)}
-        filter
         optionLabel="code"
         itemTemplate={(og) => (
           <span>
@@ -84,7 +83,6 @@ export const FormAspectosCurriculares = () => {
         loading={competenciasClave.isLoading}
         value={aspectosCurriculares.competenciasClave}
         onChange={(e) => handleBasicInfoChange("competenciasClave", e.value)}
-        filter
         optionLabel="code"
         itemTemplate={(cc) => cc.label}
         display="chip"
@@ -98,7 +96,6 @@ export const FormAspectosCurriculares = () => {
         onChange={(e) =>
           handleBasicInfoChange("descriptoresOperativos", e.value)
         }
-        filter
         disabled={!aspectosCurriculares.competenciasClave.length}
         optionLabel="code"
         itemTemplate={(cc) => (
@@ -115,7 +112,6 @@ export const FormAspectosCurriculares = () => {
         loading={perfilSalida.isLoading}
         value={aspectosCurriculares.perfilSalida}
         onChange={(e) => handleBasicInfoChange("perfilSalida", e.value)}
-        filter
         disabled={!aspectosCurriculares.competenciasClave.length}
         optionLabel="code"
         itemTemplate={(cc) => (
@@ -134,7 +130,6 @@ export const FormAspectosCurriculares = () => {
         onChange={(e) =>
           handleBasicInfoChange("competenciasEspecificas", e.value)
         }
-        filter
         optionLabel="code"
         itemTemplate={(cc) => (
           <span>
@@ -154,7 +149,6 @@ export const FormAspectosCurriculares = () => {
         loading={saberesCriterios.isLoading}
         value={aspectosCurriculares.criteriosEvaluacion}
         onChange={(e) => handleBasicInfoChange("criteriosEvaluacion", e.value)}
-        filter
         disabled={!aspectosCurriculares.competenciasEspecificas.length}
         optionLabel="code"
         itemTemplate={(cc) => (
@@ -171,7 +165,6 @@ export const FormAspectosCurriculares = () => {
         loading={saberesCriterios.isLoading}
         value={aspectosCurriculares.saberesBasicos}
         onChange={(e) => handleBasicInfoChange("saberesBasicos", e.value)}
-        filter
         optionLabel="code"
         optionGroupChildren="items"
         optionGroupLabel="code"
