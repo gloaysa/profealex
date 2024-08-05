@@ -30,7 +30,8 @@ export const getCompetenciasClave = async (
     const response = await fetch(
       `${baseUrl}/${ca}/${stageType}/competencias-clave.json`,
     );
-    return response.json();
+    const res: ICompetenciaClave[] = await response.json();
+    return res.sort((a, b) => a.code.localeCompare(b.code));
   } catch (error) {
     console.error(error);
     throw new Error("Error fetching competencias");
