@@ -10,6 +10,10 @@ import {
 } from "@/store/curriculum/curriculum.api.ts";
 import { InputMultiSelect } from "@components/InputMultiSelect/InputMultiSelect.component.tsx";
 import { useSituacionAprendizajeFormStore } from "@/store/situacion-aprendizaje-form/situacion-aprendizaje-form.store.ts";
+import {
+  ICompetenciaClave,
+  ICompetenciaEspecifica,
+} from "@/store/curriculum/curriculum.interface.ts";
 
 export const FormAspectosCurriculares = () => {
   const { selectedCA, selectedStage, selectedSubject } = useCurriculumStore();
@@ -30,9 +34,9 @@ export const FormAspectosCurriculares = () => {
     enabled: !!selectedCA && !!selectedStage,
   });
 
-  const descriptors = aspectosCurriculares.competenciasClave.flatMap(
-    (cc) => cc.descriptors,
-  );
+  const descriptors = aspectosCurriculares.competenciasClave
+    .filter((cc) => cc.descriptors.some((d) => d.parentCode === cc.code))
+    .flatMap((cc) => cc.descriptors);
 
   const perfilSalida = useQuery({
     queryKey: ["perfilSalida", selectedCA, selectedStage],
@@ -55,8 +59,12 @@ export const FormAspectosCurriculares = () => {
 
   const handleBasicInfoChange = (
     key: keyof typeof aspectosCurriculares,
-    value: string[],
+    value: (typeof aspectosCurriculares)[keyof typeof aspectosCurriculares],
   ) => {
+    if (Array.isArray(value)) {
+      // sort by code
+      value.sort((a, b) => a.code.localeCompare(b.code));
+    }
     setAspectosCurriculares({ ...aspectosCurriculares, [key]: value });
   };
 
@@ -82,7 +90,19 @@ export const FormAspectosCurriculares = () => {
         options={competenciasClave.data}
         loading={competenciasClave.isLoading}
         value={aspectosCurriculares.competenciasClave}
-        onChange={(e) => handleBasicInfoChange("competenciasClave", e.value)}
+        onChange={(e) => {
+          const cc: ICompetenciaClave[] = e.value;
+          const updatedDO = aspectosCurriculares.descriptoresOperativos.filter(
+            (d) => cc.some((desc) => desc.code === d.parentCode),
+          );
+          setAspectosCurriculares({
+            ...aspectosCurriculares,
+            competenciasClave: cc.sort((a, b) => a.code.localeCompare(b.code)),
+            descriptoresOperativos: updatedDO.sort((a, b) =>
+              a.code.localeCompare(b.code),
+            ),
+          });
+        }}
         optionLabel="code"
         itemTemplate={(cc) => cc.label}
         display="chip"
@@ -127,9 +147,22 @@ export const FormAspectosCurriculares = () => {
         options={competenciasEspecificas.data}
         loading={competenciasEspecificas.isLoading}
         value={aspectosCurriculares.competenciasEspecificas}
-        onChange={(e) =>
-          handleBasicInfoChange("competenciasEspecificas", e.value)
-        }
+        onChange={(e) => {
+          const ce: ICompetenciaEspecifica[] = e.value;
+          const criteriosEvaluacion =
+            aspectosCurriculares.criteriosEvaluacion.filter((criterio) =>
+              ce.some((ceId) => ceId.code === criterio.parent),
+            ) ?? [];
+          setAspectosCurriculares({
+            ...aspectosCurriculares,
+            competenciasEspecificas: ce.sort((a, b) =>
+              a.code.localeCompare(b.code),
+            ),
+            criteriosEvaluacion: criteriosEvaluacion.sort((a, b) =>
+              a.code.localeCompare(b.code),
+            ),
+          });
+        }}
         optionLabel="code"
         itemTemplate={(cc) => (
           <span>

@@ -74,7 +74,7 @@ export const SubjectSelector = () => {
         />
         <div className="flex gap-2 pl-2 align-items-center text-xs">
           {breadCrumb.map((item) => (
-            <span key={item.id}>
+            <span key={item.id} className="text-color">
               {item.icon ? (
                 <i className={`${item.icon} text-xs`}></i>
               ) : (
@@ -96,7 +96,7 @@ export const SubjectSelector = () => {
             getCA(e.value.code);
           }}
           optionDisabled={(ca: ICA) => !ca.migrated}
-          placeholder="Selecciona la Comunidad Autónoma"
+          placeholder="Comunidad Autónoma"
           showClear
           clearIcon={
             <Button

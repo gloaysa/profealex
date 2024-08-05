@@ -46,7 +46,7 @@ const defaultState = {
   basicInfo: {
     title: { text: "" },
     temporalizacion: { text: "" },
-    sesiones: { text: "0" },
+    sesiones: { text: "1" },
     justificacion: { text: "" },
     descripcion: { text: "" },
     productoFinal: { text: "" },
@@ -93,7 +93,7 @@ const defaultState = {
   },
   sesiones: [
     {
-      code: `1`,
+      code: "1",
       title: { text: "" },
       temporalizacion: { text: "" },
       objetivos: { text: "" },

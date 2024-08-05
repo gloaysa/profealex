@@ -20,7 +20,7 @@ const PDFSection = ({
         {`
           .pdf-section:has(> div:empty) {
             display: none;
-          }
+          };
         `}
       </style>
       <section
@@ -35,7 +35,12 @@ const PDFSection = ({
         >
           {title}
         </h2>
-        <div style={{ pageBreakInside: "avoid" }}>{children}</div>
+        <div
+          className="pdf-section-content"
+          style={{ pageBreakInside: "avoid" }}
+        >
+          {children}
+        </div>
       </section>
     </>
   );
@@ -84,7 +89,7 @@ const PDFHtmlList = ({
       >
         {title}
       </h3>
-      <ul className="list-none">
+      <ul className="list-none p-0">
         {items.map((item) => (
           <li
             key={item.code}
@@ -171,12 +176,18 @@ export const FormCreatePdf = () => {
             <p style={{ pageBreakInside: "avoid", breakInside: "avoid" }}>
               <strong>Área:</strong> {selectedSubject.label}
             </p>
-            <p style={{ pageBreakInside: "avoid", breakInside: "avoid" }}>
-              <strong>Temporalización:</strong> {basicInfo.temporalizacion.text}
-            </p>
-            <p style={{ pageBreakInside: "avoid", breakInside: "avoid" }}>
-              <strong>Sesiones:</strong> {basicInfo.sesiones.text}
-            </p>
+            {!!basicInfo.temporalizacion.text && (
+              <p style={{ pageBreakInside: "avoid", breakInside: "avoid" }}>
+                <strong>Temporalización:</strong>{" "}
+                {basicInfo.temporalizacion.text}
+              </p>
+            )}
+
+            {!!basicInfo.sesiones.text && (
+              <p style={{ pageBreakInside: "avoid", breakInside: "avoid" }}>
+                <strong>Sesiones:</strong> {basicInfo.sesiones.text}
+              </p>
+            )}
           </div>
 
           <PDFHtmlField
@@ -306,29 +317,49 @@ export const FormCreatePdf = () => {
         </PDFSection>
 
         <PDFSection title="Sesiones">
-          {sesiones.map((sesion) => (
-            <div
-              key={sesion.code}
-              style={{ pageBreakInside: "avoid", breakInside: "avoid" }}
-            >
-              <h2 style={{ pageBreakInside: "avoid", breakInside: "avoid" }}>
-                {sesion.title.text}
-              </h2>
-              <p style={{ pageBreakInside: "avoid", breakInside: "avoid" }}>
-                Temporización: {sesion.temporalizacion.text}
-              </p>
-              <PDFHtmlField title="Objetivos" content={sesion.objetivos.html} />
-              <PDFHtmlField title="Recursos" content={sesion.recursos.html} />
-              <PDFHtmlField
-                title="Actividades"
-                content={sesion.actividades.html}
-              />
-              <PDFHtmlField
-                title="Seguimiento"
-                content={sesion.seguimiento.html}
-              />
-            </div>
-          ))}
+          {!!sesiones.length &&
+            sesiones.map(
+              (sesion) =>
+                !!sesion.title.text && (
+                  <div
+                    key={sesion.code}
+                    style={{ pageBreakInside: "avoid", breakInside: "avoid" }}
+                  >
+                    <h2
+                      style={{ pageBreakInside: "avoid", breakInside: "avoid" }}
+                    >
+                      {sesion.title.text}
+                    </h2>
+                    {!!sesion.temporalizacion.text && (
+                      <p
+                        style={{
+                          pageBreakInside: "avoid",
+                          breakInside: "avoid",
+                        }}
+                      >
+                        Temporización: {sesion.temporalizacion.text}
+                      </p>
+                    )}
+
+                    <PDFHtmlField
+                      title="Objetivos"
+                      content={sesion.objetivos.html}
+                    />
+                    <PDFHtmlField
+                      title="Recursos"
+                      content={sesion.recursos.html}
+                    />
+                    <PDFHtmlField
+                      title="Actividades"
+                      content={sesion.actividades.html}
+                    />
+                    <PDFHtmlField
+                      title="Seguimiento"
+                      content={sesion.seguimiento.html}
+                    />
+                  </div>
+                ),
+            )}
         </PDFSection>
       </article>
       <Button

@@ -29,10 +29,16 @@ export interface ICriterioEvaluacion {
   label: string;
 }
 
-export interface ISaberesCriterios {
+export interface ISaber {
   code: string;
   label: string;
   items: { label: string; code: string }[];
+}
+
+export interface IPrincipioDUA {
+  code: string;
+  label: string;
+  pautas: { code: string; label: string }[];
 }
 
 export interface ISubject {

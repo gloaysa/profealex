@@ -2,7 +2,8 @@ import {
   ICompetenciaClave,
   ICompetenciaEspecifica,
   ICriterioEvaluacion,
-  ISaberesCriterios,
+  IPrincipioDUA,
+  ISaber,
   ObjectivosGenerales,
   PerfilSalida,
 } from "@/store/curriculum/curriculum.interface.ts";
@@ -28,7 +29,7 @@ export interface AspectosCurriculares {
   perfilSalida: PerfilSalida[];
   competenciasEspecificas: ICompetenciaEspecifica[];
   criteriosEvaluacion: ICriterioEvaluacion[];
-  saberesBasicos: ISaberesCriterios[];
+  saberesBasicos: ISaber[];
 }
 
 export interface FormActividades {
@@ -51,11 +52,7 @@ export interface FormTransversalidad {
 }
 
 export interface FormAtencionInclusiva {
-  principiosDUA: {
-    code: string;
-    label: string;
-    pautas: { code: string; label: string }[];
-  }[];
+  principiosDUA: IPrincipioDUA[];
   pautasDUA: { code: string; label: string }[];
   adaptaciones: Content;
 }

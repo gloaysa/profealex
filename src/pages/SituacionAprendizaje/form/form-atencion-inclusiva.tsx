@@ -4,6 +4,7 @@ import { InputMultiSelect } from "@components/InputMultiSelect/InputMultiSelect.
 import { useQuery } from "@tanstack/react-query";
 import { getPautasDUA } from "@/store/curriculum/curriculum.api.ts";
 import { MarkDownEditor } from "@components/MarkDownEditor/MarkDownEditor.mol.tsx";
+import { IPrincipioDUA } from "@/store/curriculum/curriculum.interface.ts";
 
 export const FormAtencionInclusiva = () => {
   const { atencionInclusiva, setAtencionInclusiva } =
@@ -16,8 +17,12 @@ export const FormAtencionInclusiva = () => {
 
   const handleBasicInfoChange = (
     key: keyof typeof atencionInclusiva,
-    value: { text: string; html: string },
+    value: (typeof atencionInclusiva)[keyof typeof atencionInclusiva],
   ) => {
+    if (Array.isArray(value)) {
+      // sort by code
+      value.sort((a, b) => a.code.localeCompare(b.code));
+    }
     setAtencionInclusiva({ ...atencionInclusiva, [key]: value });
   };
 
@@ -28,7 +33,21 @@ export const FormAtencionInclusiva = () => {
         options={dua.data}
         loading={dua.isLoading}
         value={atencionInclusiva.principiosDUA}
-        onChange={(e) => handleBasicInfoChange("principiosDUA", e.value)}
+        onChange={(e) => {
+          const principios: IPrincipioDUA[] = e.value;
+          const newPautas = principios.flatMap((p) => p.pautas);
+          const currentPautas = atencionInclusiva.pautasDUA;
+          const pautas = currentPautas.filter((p) =>
+            newPautas.find((np) => np.code === p.code),
+          );
+          setAtencionInclusiva({
+            ...atencionInclusiva,
+            principiosDUA: principios.sort((a, b) =>
+              a.code.localeCompare(b.code),
+            ),
+            pautasDUA: pautas.sort((a, b) => a.code.localeCompare(b.code)),
+          });
+        }}
         optionLabel="code"
         itemTemplate={(cc) => cc.label}
         display="chip"
@@ -36,7 +55,9 @@ export const FormAtencionInclusiva = () => {
       <InputMultiSelect
         label="Pautas DUA"
         options={atencionInclusiva.principiosDUA.flatMap((p) =>
-          p.pautas?.map((pauta) => ({ ...pauta, principio: p.code })),
+          p.pautas
+            ?.map((pauta) => ({ ...pauta, principio: p.code }))
+            .sort((a, b) => a.code.localeCompare(b.code)),
         )}
         loading={dua.isLoading}
         value={atencionInclusiva.pautasDUA}

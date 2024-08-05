@@ -26,8 +26,10 @@ export const SituacionAprendizaje = () => {
 
   return (
     <div className="flex flex-column gap-4">
-      <div className="flex flex-column gap-2 md:gap-4 bg-primary-300 border-round p-2 md:p-4">
-        <h1 className="p-2 m-0 text-center">Situación de aprendizaje</h1>
+      <div className="flex flex-column gap-4 bg-primary-200 border-round p-2 md:p-4">
+        <h1 className="p-2 m-0 text-center uppercase">
+          Situación de aprendizaje
+        </h1>
         <SubjectSelector />
       </div>
 

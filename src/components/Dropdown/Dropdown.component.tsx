@@ -20,7 +20,7 @@ export const Dropdown: FunctionComponent<
           ref={ref}
           className={`w-full ${props.className}`}
         />
-        <label htmlFor={props.name}>
+        <label htmlFor={props.name} className="text-color">
           {props.placeholder && <span>{props.placeholder}</span>}
         </label>
       </FloatLabel>

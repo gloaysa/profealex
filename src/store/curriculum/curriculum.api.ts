@@ -1,8 +1,9 @@
 import {
   ICompetenciaClave,
+  ICompetenciaEspecifica,
   ICriterioEvaluacion,
   IMateria,
-  ISaberesCriterios,
+  ISaber,
   ISubject,
   ObjectivosGenerales,
   PerfilSalida,
@@ -113,7 +114,7 @@ export const getSituacionesAprendizaje = async (
 export const getCompetenciasEspecificas = async (
   ca: string,
   subject: ISubject,
-): Promise<{ code: number; label: string }[]> => {
+): Promise<ICompetenciaEspecifica[]> => {
   try {
     const response = await fetch(
       `${baseUrl}/${ca}/${subject.stage}/${subject.code}/competencias-especificas.json`,
@@ -126,7 +127,7 @@ export const getCompetenciasEspecificas = async (
     // we want to return an object like {code: 1, label: "Understand blablabla"}
     return compEsp.map((comp: string) => {
       const [code, label] = comp.split(". ");
-      return { code: Number(code), label };
+      return { code: code, label };
     });
   } catch (error) {
     console.error(error);
@@ -138,7 +139,7 @@ export const getSaberesCriterios = async (
   ca: string,
   subject: ISubject,
 ): Promise<{
-  saberes: ISaberesCriterios[];
+  saberes: ISaber[];
   criteriosEvaluacion: ICriterioEvaluacion[];
 }> => {
   try {
@@ -150,8 +151,8 @@ export const getSaberesCriterios = async (
     // an example of this output would be:
     // {saberes: ["A. Something", "- Something else related to A", "* Another thing related to A"], criteriosEvaluacion: ["1.1 Criteria 1", "1.2. Criteria 2", "2.1. Criteria 3"]}
     // we want to return an object like {saberes: [{code: 'A', label: 'Something", items: ["Something else related to A", "Another thing related to A"]}], criteriosEvaluacion: [{parent: 1, code: 1, label: "Criteria 1"}, {parent: 1, code: 2, label: "Criteria 2"}, {parent: 2, code: 1, label: "Criteria 3"}]}
-    const saberes = res.saberes.reduce(
-      (acc: ISaberesCriterios[], sab: string) => {
+    const saberes: ISaber[] = res.saberes.reduce(
+      (acc: ISaber[], sab: string) => {
         const isHeader = new RegExp("^[A-Z]$").test(sab[0]);
         if (isHeader) {
           const [code, label] = sab.split(". ");
@@ -168,13 +169,12 @@ export const getSaberesCriterios = async (
       [],
     );
 
-    const criteriosEvaluacion = res.criteriosEvaluacion.map(
-      (criterio: string) => {
+    const criteriosEvaluacion: ICriterioEvaluacion[] =
+      res.criteriosEvaluacion.map((criterio: string) => {
         const [code, label] = criterio.split(". ");
         const [parent] = code.split(".");
-        return { parent: Number(parent), code: Number(code), label };
-      },
-    );
+        return { parent: parent, code: code, label };
+      });
 
     return { saberes, criteriosEvaluacion };
   } catch (error) {
