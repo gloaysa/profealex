@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCurriculumStore } from "@/store/curriculum/curriculum.store.ts";
 import { ICA } from "@/store/curriculum/curriculum.interface.ts";
 import { COMUNIDADES_AUTONOMAS } from "@/store/curriculum/ca.data.ts";
 import { Button } from "primereact/button";
+import { Dropdown as PrimeDropdown } from "primereact/dropdown";
 import { Dropdown } from "@components/Dropdown/Dropdown.component.tsx";
 import { MenuItem } from "primereact/menuitem";
 import { ConfirmButton } from "@components/ConfirmButton/ConfirmButton.mol.tsx";
@@ -22,6 +23,7 @@ export const SubjectSelector = () => {
     setSelectedSubject,
   } = useCurriculumStore();
 
+  const selectSubjectDropdownRef = useRef<PrimeDropdown>(null);
   const [breadCrumb, setBreadCrumb] = useState<MenuItem[]>([]);
 
   useEffect(() => {
@@ -46,6 +48,7 @@ export const SubjectSelector = () => {
         className={`flex flex-column gap-2 transition-all transition-duration-1000 transition-ease-in-out ${selectedSubject ? "h-full fadeinleft" : "max-h-0 overflow-hidden fadeoutleft"}`}
       >
         <Dropdown
+          ref={selectSubjectDropdownRef}
           className="w-full md:w-auto"
           placeholder="Asignatura"
           value={selectedSubject}
@@ -64,7 +67,7 @@ export const SubjectSelector = () => {
               size="small"
               content="Si continúas, se perderán los datos del formulario, ¿estás seguro de que deseas continuar?"
               accept={() => {
-                clear();
+                selectSubjectDropdownRef.current?.clear();
               }}
             />
           }

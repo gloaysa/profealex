@@ -44,7 +44,8 @@ export const ConfirmButton: FunctionComponent<IProps> = ({
           <Button
             label="Cancelar"
             severity="secondary"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               setVisible(false);
               reject && reject();
             }}
@@ -52,9 +53,10 @@ export const ConfirmButton: FunctionComponent<IProps> = ({
           <Button
             label="Continuar"
             severity="danger"
-            onClick={() => {
-              accept();
+            onClick={(e) => {
+              e.preventDefault();
               setVisible(false);
+              accept();
             }}
           />
         </div>
