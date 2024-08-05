@@ -17,8 +17,8 @@ function App() {
             width="100px"
             src="/icon512_rounded.png"
           />
-          <div className="flex flex-column gap-2 justify-content-center">
-            <span className="text-3xl text-center text-primary">ProfeAlex</span>
+          <div className="flex flex-column gap-2">
+            <span className="text-3xl text-primary">ProfeAlex</span>
             <small>Herramientas educativas</small>
           </div>
         </header>
@@ -55,7 +55,7 @@ function App() {
             href="https://github.com/gloaysa/profealex/issues"
             target="_blank"
           >
-            ¿Problemas? Reportalos aquí
+            ¿Problemas? Repórtalos aquí
             <i className="pi pi-github px-2" />
           </a>
         </p>
